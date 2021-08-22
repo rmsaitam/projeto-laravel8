@@ -20,8 +20,41 @@ Após ter instalado o Docker e Docker-compose, segue os procedimentos:
 
 O diretório src do HOST é o volume mapeado no diretório /var/www/html do CONTAINER. Então, é no diretório src que deve salvar os arquivos .php.
 
-No browser http://localhost/info.php e veja o JIT e outras extensões habilitadas do PHP.
+Acesse o Adminer http://localhost:8080
 
-Para acessar a ferramenta web para gerenciar o banco de dados, acesse http://localhost:8080 as credencias de acesso, encontra-se no arquivo docker-compose.yml
+Logar com usuário root com o password definido no docker-compose.yml e cria o banco de dados no SGBD MySQL
+
+Copiar o arquivo .env.example (template) para o .env e coloque as informações de banco de dados
+
+Em DB_HOST coloca o nome do container do banco de dados, no caso foi db
+
+`$ cp src/crud-laravel/.env.example src/crud-laravel/.env`
+
+```
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=nome-banco-de-dados-criado
+DB_USERNAME=root
+DB_PASSWORD=secret
+
+```
+
+Instale o Laravel framework com composer
+
+`$ docker exec -it php8-apache composer install`
+
+Execute o migrations
+
+`$ docker exec -it php8-apache php artisan migrate`
+
+Gerar a chave única da aplicação
+
+`$ docker exec -it php8-apache php artisan key:generate`
+
+No arquivo /etc/hosts, coloque o nome do Vhost configurado no projeto, no caso foi app.intranet
+127.0.0.1 app.intranet
+
+http://app.intranet:8000/marcas 
 
 Feito!
