@@ -1,4 +1,4 @@
-# php8-apache-docker
+# projeto-laravel8-docker
 Ambiente de desenvolvimento PHP 8 + JIT habilitado, Apache, SGBD MySQL 8 e Adminer
 
 **Pré-requisitos:** Ter o Docker e Docker-compose instalados.
